@@ -1,0 +1,20 @@
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+<table>
+    <h3>Registered User List</h3>
+    <th>Username</th>
+    <th>Email</th>
+    {% for User in objects %}
+    <tr>
+       
+        <td>{{User.username}}</td>
+        <td>{{User.email}}</td>
+        
+    </tr>
+    {% endfor %}
+    
+</table>

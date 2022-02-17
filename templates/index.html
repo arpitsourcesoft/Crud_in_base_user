@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title> Home Page</title>
+    </head>
+    <body>
+           
+    <h3>Welcome to my Website</h3>
+    
+<form action="" method='POST'>
+    {% csrf_token %}  
+<button>
+<a href = "{% url 'login' %}">login<a/>
+</button>
+<button>
+<a href = "{% url 'signup' %}">signup<a/>
+</button>
+</form>
+    </body>
+</html>
