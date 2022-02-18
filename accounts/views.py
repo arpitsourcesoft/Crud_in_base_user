@@ -2,13 +2,14 @@ from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, HttpResponseRedirect
 from django.contrib.auth import get_user_model
+from django.urls import is_valid_path
 from .models import User
 from django.http import HttpResponse
 from .forms import login_account, userregistration
+from django.contrib.auth import authenticate, login
 
 def home(request):
     data = User.objects.all() 
-    print(data)  
     return render(request,template_name='home.html',context={'objects':data})
 
 def index(request):    
@@ -17,43 +18,58 @@ def index(request):
 
 def showformdata(request):
     if request.method == 'GET':
-        print("hello mai GET hu")
+        
         form = userregistration(request.GET)
+        print(type(form))
         return render(request, template_name = "signup.html", context={'form':form})
 
     if request.method == "POST":
-        print("hello mai POST hu")
         form = userregistration(request.POST)
-        print("hello mai userregistration hu")
         if form.is_valid():
             username = request.POST['username']
-            # first_name = request.POST['first_name']
-            # last_name = request.POST['last_name']
             email = request.POST['email']
-            en = User.objects.create(username=username, email= email)
+            password = request.POST['password']
+            mobile = request.POST['mobile']
+            en = User.objects.create(username=username, email= email, mobile= mobile)
+            en.set_password(password)
             en.save()
-            print("hello mai form valid k baadka matter hu")
             return render(request, template_name = "signup.html", context={"form":form})
 
-def login(request):
-    if request.method == 'GET':
-        
+def user_login(request):
+    if request.method == 'GET':        
         form = login_account(request.GET)
         return render(request, template_name = "login.html", context={'form':form})
 
-    if request.method == "POST":
-        
+    if request.method == "POST":        
         form = login_account(request.POST)
        
         if form.is_valid():
             password = request.POST['password']
-            email = request.POST['email']
-           
-            print(request.user)
-            return HttpResponseRedirect("/home/")
-        
-        
+            email = request.POST['email']           
+            # print(request.user)
+            test_user = User.objects.get(email=email)
+            print("check password------->", test_user.check_password(password))
+            user = authenticate(email=email, password=password)
+            print(user)
+            if user is not None:
+                login(request,user)
+                return HttpResponseRedirect("/home/")
+            else:
+                return HttpResponse("Invalid Creadentials")
+
+            # if request.user.is_authenticated:
+            #     pass
+            # else:
+            #     return HttpResponseRedirect("/login/")
+            # return HttpResponseRedirect("/home/")
         return render(request, template_name = "login.html", context={"form":form})
-
-
+# def my_view(request):
+#     email = request.POST['email']
+#     password = request.POST['password']
+#     user = authenticate(request, username=email, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return HttpResponseRedirect("/home/")
+#     else:
+#         return HttpResponse("Invalid Creadentials")
 

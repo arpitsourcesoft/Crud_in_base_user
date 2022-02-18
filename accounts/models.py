@@ -8,13 +8,13 @@ class User(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=100)
     email = models.EmailField(max_length=255, unique=True)
     mobile = models.CharField(max_length=14)
-    password = models.CharField(max_length=4)
+    password = models.CharField(max_length=255)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-
+    is_active = models.BooleanField(default=True)
 
     objects = UserManager()
-    
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELD = []
 
