@@ -2,12 +2,14 @@ from django.urls import path
 
 from . import views
 
+
 urlpatterns = [
-    path('signup/', views.showformdata, name = 'signup'),
-    path('home/', views.home),  
     path('', views.index, name = 'index'), 
+    path('home/', views.home),  
     path('showformdata', views.showformdata),
-    path('login', views.user_login, name= 'login'),
+    path('signup/', views.showformdata, name = 'signup'),
+    path('login/', views.user_login, name= 'login'),
+    path('detail<int:pk>', views.show_user, name= 'detail'),
     
 #     # ex: /polls/
 #     path('', views.index, name='index'),

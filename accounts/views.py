@@ -59,3 +59,15 @@ def user_login(request):
 
         return render(request, template_name = "login.html", context={"form":form})
 
+def success(request):
+    return render(request, template_name='success.html')
+
+def show_user(request, pk):
+    u=User.objects.get(pk=pk)
+    print(u.username)
+    print(u.mobile)
+    context = {
+        "us" : u
+    }    
+    return render(request,"success.html",context)
+    

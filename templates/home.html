@@ -10,11 +10,15 @@
     <th>Email</th>
     {% for User in objects %}
     <tr>
-       
-        <td>{{User.username}}</td>
-        <td>{{User.email}}</td>
-        
+        <td>
+            <a href={% url "detail" User.id%}> {{User.username}}</a>  </td>
+           
+        <td>{{User.email}}</td>     
     </tr>
     {% endfor %}
-    
+    <button>
+        <a href = "{% url 'index' %}">Logout</a>
+    </button>
 </table>
+
+

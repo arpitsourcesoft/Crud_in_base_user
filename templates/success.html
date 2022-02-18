@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+   <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      </style>
 </head>
 <body>
-   Successfully Registered
+   <table>
+      <h3>User details</h3>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      
+      <tr> 
+          <td>{{us.username}}</td>
+          <td>{{us.email}}</td>
+          <td>{{us.mobile}}</td>
+              
+      </tr>
+      
+   </table>
 </body>
 </html>
