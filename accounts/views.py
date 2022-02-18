@@ -57,19 +57,5 @@ def user_login(request):
             else:
                 return HttpResponse("Invalid Creadentials")
 
-            # if request.user.is_authenticated:
-            #     pass
-            # else:
-            #     return HttpResponseRedirect("/login/")
-            # return HttpResponseRedirect("/home/")
         return render(request, template_name = "login.html", context={"form":form})
-# def my_view(request):
-#     email = request.POST['email']
-#     password = request.POST['password']
-#     user = authenticate(request, username=email, password=password)
-#     if user is not None:
-#         login(request, user)
-#         return HttpResponseRedirect("/home/")
-#     else:
-#         return HttpResponse("Invalid Creadentials")
 
